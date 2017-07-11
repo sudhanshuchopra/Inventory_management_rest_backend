@@ -21,3 +21,5 @@ urlpatterns = [
     url(r'^api/items/',include('items.urls')),
     url(r'^api/users/',include('users.urls')),
 ]
+admin.site.site_title = "inventory management"
+admin.site.site_header = "Airport Authority of India"
