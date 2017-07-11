@@ -86,8 +86,9 @@ def update_items(request):
     	k=Item.objects.filter(borrower_id=1,category_id=category_id)
     	k=k.count()
     	if(k<obj_count):
-    		obj=Item.objects.create(category=category,borrower=borrower)
-    		k=k+1
+    		while(k<obj_count):
+    			obj=Item.objects.create(category=category,borrower=borrower)
+    			k=k+1
     	elif(k>obj_count):
     		items=Item.objects.filter(borrower_id=1,category_id=category_id)
     		for each in items:
