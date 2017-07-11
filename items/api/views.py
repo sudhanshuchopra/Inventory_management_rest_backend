@@ -31,7 +31,7 @@ def stock_status(request):
     for each in category_list:
     	category={}
     	category['name']=each.name
-    	category['description']=each.description
+    	category['description']=each.description     
     	free_objects=0
     	obj_list=list(each.items.values())
     	for every in obj_list:
@@ -42,3 +42,4 @@ def stock_status(request):
     	categories.append(category)
 
     return Response(categories)
+
