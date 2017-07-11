@@ -69,3 +69,30 @@ def request_item(request):
 			obj_quantity=obj_quantity-1
 	return Response({'message':'items provided'})
 
+
+@api_view(['POST'])
+def update_items(request):
+    request_obj=request.data
+    obj_email=request_obj['email']
+    users=MyUser.objects.filter(email=obj_email)
+    if(users.count()<=0):
+    	return Response({'invalid':'email'})
+    user=users.first()
+    if(user.is_superuser):
+    	category_id=request_obj['bid']
+    	obj_count=request_obj['quantity']
+    	category=Category.objects.filter(id=category_id).first()
+    	borrower=MyUser.objects.filter(id=1).first()
+    	k=Item.objects.filter(borrower_id=1,category_id=category_id)
+    	k=k.count()
+    	if(k<obj_count):
+    		obj=Item.objects.create(category=category,borrower=borrower)
+    		k=k+1
+    	elif(k>obj_count):
+    		items=Item.objects.filter(borrower_id=1,category_id=category_id)
+    		for each in items:
+    			if(k>obj_count):
+    				each.delete()
+    				k=k-1
+    	return Response({'message':'inventory updated'})
+    return Response({'invalid':'user is not a superuser'})
