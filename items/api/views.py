@@ -43,3 +43,4 @@ def stock_status(request):
 
     return Response(categories)
 
+

@@ -9,6 +9,9 @@ urlpatterns = [
     url(r'^additems$',views.add_items),
     url(r'^requestitems$',views.request_item),
     url(r'^updateitems$',views.update_items),
+    url(r'^deleteitems$',views.delete_item),
+
+
 
 ]
 

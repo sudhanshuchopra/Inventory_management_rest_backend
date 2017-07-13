@@ -97,3 +97,21 @@ def update_items(request):
     				k=k-1
     	return Response({'message':'inventory updated'})
     return Response({'invalid':'user is not a superuser'})
+
+@api_view(['DELETE'])
+def delete_item(request):
+    request_obj=request.data
+    category_id=request_obj['bid']
+    email=request_obj['email']
+    user=MyUser.objects.filter(email=email)
+    if(user.count()<=0):
+        return Response({'result':False})
+    user=user.first()
+    if not user.is_superuser:
+        return Response({'result':False})
+    category=Category.objects.filter(id=category_id)
+    if(category.count()<=0):
+        return Response({'result':False})
+    category=category.first()
+    category.delete()
+    return Response({'result':True})
